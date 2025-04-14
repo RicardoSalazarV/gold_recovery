@@ -4,7 +4,7 @@ Este proyecto se centra en la predicción de la recuperación de oro en una plan
 Análisis de Recuperación de Oro
 Aplicación interactiva de Streamlit para explorar y analizar datos de recuperación de oro. La aplicación permite cargar datos, visualizar distribuciones, analizar correlaciones y explorar relaciones entre diferentes variables del proceso de recuperación de oro.
 Demo en vivo
-Enlace a la aplicación en Render ("")
+Enlace a la aplicación en Render ("https://gold-recovery.onrender.com")
 Mostrar imagen
 Características
 
