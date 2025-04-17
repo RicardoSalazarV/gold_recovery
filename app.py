@@ -13,7 +13,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Función para cargar el dataset desde un archivo local o cargado por el usuario
+# Función para cargar el dataset 
 @st.cache_data
 def load_data(uploaded_file=None):
     try:
@@ -29,11 +29,11 @@ def load_data(uploaded_file=None):
                 os.path.join("datasets", "gold_recovery_train.csv")  # Usando os.path para compatibilidad
             ]
             
-            # Para desarrollo local solamente
+            # Para desarrollo local 
             if os.path.exists("C:\\Users\\ricar\\Desktop\\gold_recovery\\datasets\\gold_recovery_train.csv"):
                 possible_paths.insert(0, "C:\\Users\\ricar\\Desktop\\gold_recovery\\datasets\\gold_recovery_train.csv")
             
-            # Intentar cada ruta hasta encontrar el archivo
+            
             df = None
             for path in possible_paths:
                 try:
@@ -51,7 +51,7 @@ def load_data(uploaded_file=None):
         if 'date' in df.columns:
             df['date'] = pd.to_datetime(df['date'], errors='coerce')
         
-        # Verificar si la columna de recuperación existe y crearla si no
+        
         if 'rougher.output.recovery' in df.columns:
             df['recovery_rate'] = df['rougher.output.recovery']
         
@@ -64,7 +64,7 @@ def load_data(uploaded_file=None):
         st.error(f"Error al cargar los datos: {e}")
         return pd.DataFrame()
 
-# Función para mostrar estadísticas generales
+# Función para mostrar estadísticas 
 def show_statistics(filtered_df):
     with st.expander("📊 Estadísticas generales", expanded=True):
         st.write(f"### Datos Filtrados ({len(filtered_df)} registros)")
@@ -73,7 +73,7 @@ def show_statistics(filtered_df):
         if show_data:
             st.dataframe(filtered_df)
 
-# Función para construir un histograma
+# Función para construir histograma
 def build_histogram(filtered_df, column):
     st.write(f"### Histograma de {column}")
     fig_hist = px.histogram(
@@ -85,7 +85,7 @@ def build_histogram(filtered_df, column):
     )
     st.plotly_chart(fig_hist, use_container_width=True)
 
-# Función para construir un gráfico de dispersión dinámico
+# Función para construir un gráfico de dispersión
 def build_scatter_plot(filtered_df):
     st.write("### Gráfico de dispersión")
     
@@ -98,7 +98,7 @@ def build_scatter_plot(filtered_df):
     
     x_column = st.selectbox("Selecciona columna X", options=numeric_columns, index=0)
     
-    # Determinar índice para y_column (preferiblemente recovery_rate si existe)
+    # Determinar índice para y_column 
     y_index = numeric_columns.index('recovery_rate') if 'recovery_rate' in numeric_columns else 0
     if y_index == 0 and len(numeric_columns) > 1:  # Evitar que x e y sean iguales
         y_index = 1
@@ -121,7 +121,7 @@ def build_scatter_plot(filtered_df):
     )
     st.plotly_chart(fig_scatter, use_container_width=True)
 
-# Función para mostrar la distribución de una variable categórica
+# Función para mostrar la distribución
 def show_category_distribution(filtered_df, column):
     if column not in filtered_df.columns:
         st.warning(f"La columna '{column}' no existe en el dataset.")
@@ -144,7 +144,7 @@ def show_category_distribution(filtered_df, column):
     ax.set_ylabel(column)
     st.pyplot(fig)
 
-# Función para mostrar un boxplot por grupo
+# Función para mostrar un boxplot 
 def show_boxplot_by_group(filtered_df, value_column, group_column):
     if value_column not in filtered_df.columns or group_column not in filtered_df.columns:
         st.warning(f"Una de las columnas seleccionadas no existe en el dataset.")
@@ -179,7 +179,7 @@ def show_correlation_heatmap(filtered_df):
         st.warning("Se necesitan al menos dos columnas numéricas para crear una matriz de correlación.")
         return
         
-    # Limitar a un número manejable de columnas si hay demasiadas
+    # Limitar a un número manejable de columnas
     if numeric_df.shape[1] > 15:
         st.warning("Mostrando correlaciones para las 15 columnas más relevantes.")
         # Priorizar recovery_rate si existe
@@ -210,7 +210,7 @@ def main():
     uploaded_file = st.file_uploader("Cargar archivo CSV de datos de recuperación de oro", type="csv")
     df = load_data(uploaded_file)
     
-    # Validar si los datos fueron cargados correctamente
+    # Validar si los datos fueron cargados 
     if df.empty:
         st.warning("No hay datos disponibles. Por favor, carga un archivo CSV válido.")
         return
@@ -222,7 +222,7 @@ def main():
     # Sidebar con filtros interactivos
     st.sidebar.header("Filtros")
     
-    # Filtro por rango de recuperación si la columna existe
+    # Filtro por rango de recuperación 
     if 'recovery_rate' in df.columns:
         recovery_min = float(df['recovery_rate'].min())
         recovery_max = float(df['recovery_rate'].max())
@@ -233,7 +233,7 @@ def main():
     else:
         recovery_range = None
     
-    # Detectar columnas categóricas para filtros adicionales
+    # Detectar columnas categóricas
     categorical_columns = df.select_dtypes(include=['object', 'category']).columns.tolist()
     
     # Permitir seleccionar una columna categórica para filtrar
