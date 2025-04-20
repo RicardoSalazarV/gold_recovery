@@ -312,10 +312,9 @@ def main():
     # Sección de conclusiones
     st.write("## Conclusiones")
     st.write("""
-    Este análisis interactivo te permite explorar los datos de recuperación de oro y encontrar patrones 
-    y relaciones entre las diferentes variables. Utiliza los filtros y visualizaciones para comprender 
-    mejor los factores que afectan la tasa de recuperación.
-    """)
+   Cierre En pocas palabras, este proyecto ha demostrado que el machine learning tiene el poder de transformar procesos industriales. No solo logramos predicciones confiables, sino que también nos llevamos aprendizajes que pueden marcar la diferencia en la operación de una planta. Y, bueno, si lo ponemos en perspectiva, esto es solo el comienzo de lo que podemos hacer combinando datos, modelos y un poco de creatividad..
+   "para mas info verifique la seccion de conclusiones en el notebook original"
+   """)
 
 # Ejecutar la aplicación
 if __name__ == "__main__":
